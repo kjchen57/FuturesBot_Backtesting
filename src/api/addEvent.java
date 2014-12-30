@@ -28,7 +28,7 @@ public class addEvent {
 	
 	public static void main(String args[]) {
 		addEvent runEvent = new addEvent();
-		runEvent.GamilSender("philipzheng@gmail.com", "20130317204241.xls");
+		runEvent.GamilSender("YOUR_EMAIL@gmail.com", "20130317204241.xls");
 	}
 	
 	public boolean GamilSender(String email, String filename) {

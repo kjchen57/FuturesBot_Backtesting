@@ -17,6 +17,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 public class GenExcel {
+	int win = 0;
+	int lost = 0;
+	int total = 0;
+	int times = 0;
+	int wincount = 0;
+	int lostcount = 0;
+	int daycount = 0;
+	
 	public static void main(String[] args) {
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("請輸入年月日：EX:Version\n");
@@ -30,6 +38,7 @@ public class GenExcel {
 		String name = "May";
 		GenExcel.writeExcel(name);
 	}
+	
 	public static double[] writeExcel(String version){
 		POIFSFileSystem fs = null;
 		HSSFWorkbook wb = null;
@@ -50,7 +59,7 @@ public class GenExcel {
 		HSSFRow row = sheet.getRow(1);
 		HSSFCell cell = null;
 
-		File folder = new File("D:\\Runtime\\" + version);
+		File folder = new File("C:\\Runtime\\" + version);
 		File[] listOfFiles = folder.listFiles();
 		BufferedReader in;
 		cell = row.createCell(0);
@@ -59,7 +68,7 @@ public class GenExcel {
 			if (listOfFiles[i].isFile()) {
 				System.out.println("File " + listOfFiles[i].getName());
 				try {
-					in = new BufferedReader(new FileReader("D:\\Runtime\\"
+					in = new BufferedReader(new FileReader("C:\\Runtime\\"
 							+ version + "\\" + listOfFiles[i].getName()));
 					int count = 0;
 					String s1;
@@ -111,7 +120,7 @@ public class GenExcel {
 		}
 
 		try {
-			wb.write(new FileOutputStream("D:\\Runtime\\" + version + ".xls"));
+			wb.write(new FileOutputStream("C:\\Runtime\\" + version + ".xls"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,6 +129,12 @@ public class GenExcel {
 			e.printStackTrace();
 		}
 		double [] result = {win, lost, total, times, (total * 200 - times * 50), win/lost, total/times, wincount, lostcount, wincount/daycount, lostcount/daycount};
+		return result;
+	}
+	
+	public double[] writeData(){
+		double [] result = {win, lost, total, times, (total * 200 - times * 50), (double)win/(double)lost, (double)total/(double)times, wincount, lostcount, (double)wincount/(double)daycount, (double)lostcount/(double)daycount};
+		clear();
 		return result;
 	}
 	
@@ -152,7 +167,7 @@ public class GenExcel {
 				j++;
 			}
 			try {
-				wb.write(new FileOutputStream("D:\\Runtime\\total" + size + ".xls"));
+				wb.write(new FileOutputStream("C:\\Runtime\\total" + size + ".xls"));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -192,7 +207,7 @@ public class GenExcel {
 				j++;
 			}
 			try {
-				wb.write(new FileOutputStream("D:\\Runtime\\total" + version + size + ".xls"));
+				wb.write(new FileOutputStream("C:\\Runtime\\total" + version + size + ".xls"));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -232,7 +247,7 @@ public class GenExcel {
 				j++;
 			}
 			try {
-				wb.write(new FileOutputStream("D:\\Runtime\\total" + version + size + ".xls"));
+				wb.write(new FileOutputStream("C:\\Runtime\\total" + version + size + ".xls"));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -248,7 +263,7 @@ public class GenExcel {
 		HSSFWorkbook wb = null;
 
 		try {
-			fs = new POIFSFileSystem(new FileInputStream("D:\\Runtime\\" + filename + ".xls"));
+			fs = new POIFSFileSystem(new FileInputStream("C:\\Runtime\\" + filename + ".xls"));
 			wb = new HSSFWorkbook(fs);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -274,7 +289,7 @@ public class GenExcel {
 		HSSFWorkbook wb = null;
 
 		try {
-			fs = new POIFSFileSystem(new FileInputStream("D:\\Runtime\\" + filename + ".xls"));
+			fs = new POIFSFileSystem(new FileInputStream("C:\\Runtime\\" + filename + ".xls"));
 			wb = new HSSFWorkbook(fs);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -289,5 +304,70 @@ public class GenExcel {
 		cell = row.getCell(3);
 		total = cell.getNumericCellValue();
 		return total;
+	}
+	private void clear() {
+		win = 0;
+		lost = 0;
+		total = 0;
+		times = 0;
+		wincount = 0;
+		lostcount = 0;
+		daycount = 0;
+	}
+
+	public int getWin() {
+		return win;
+	}
+
+	public void setWin(int win) {
+		this.win += win;
+	}
+
+	public int getLost() {
+		return lost;
+	}
+
+	public void setLost(int lost) {
+		this.lost += lost;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total += total;
+	}
+
+	public int getTimes() {
+		return times;
+	}
+
+	public void addTimes() {
+		this.times++;
+	}
+
+	public int getWincount() {
+		return wincount;
+	}
+
+	public void addWincount() {
+		this.wincount++;
+	}
+
+	public int getLostcount() {
+		return lostcount;
+	}
+
+	public void addLostcount() {
+		this.lostcount++;
+	}
+
+	public int getDaycount() {
+		return daycount;
+	}
+
+	public void setDaycount(int daycount) {
+		this.daycount = daycount;
 	}
 }
